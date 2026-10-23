@@ -1,0 +1,6 @@
+id=adg_unmount_tmpfs
+name=AdGuard tmpfs unmount
+version=1.0
+versionCode=1
+author=Rakoczi
+description=Unmounts the leftover /data/local/tmp/adg-ca-copy tmpfs (created by the adguardcert module) from the init and zygote mount namespaces after boot. The CA bind mount stays in place, so HTTPS filtering keeps working.
