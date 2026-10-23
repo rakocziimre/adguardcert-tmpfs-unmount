@@ -11,7 +11,15 @@ On Android 14+, the adguardcert module installs AdGuard's CA certificate into th
 3. bind-mounting that directory over `/apex/com.android.conscrypt/cacerts`,
 4. unmounting the temporary tmpfs again.
 
-On some setups the tmpfs stays visible to apps afterwards. Root/environment checkers such as [Duck Detector](https://github.com/eltavine/Duck-Detector-Refactoring) then report it in their Mount card, for example as **"Shell tmp dedicated mount: tmpfs, target=/data/local/tmp/adg-ca-copy"**.
+On some setups the tmpfs stays visible to apps afterwards. Root/environment checkers such as [Duck Detector](https://github.com/eltavine/Duck-Detector-Refactoring) then report it as a warning under **Namespace and consistency**:
+
+> **Shell tmp dedicated mount**: tmpfs, `target=/data/local/tmp/adg-ca-copy fs=tmpfs source=tmpfs`
+
+![Duck Detector warning before installing the module](duck-detector-before.png)
+
+*Duck Detector before installing this module: the leftover adg-ca-copy tmpfs is flagged.*
+
+**If you see this warning, this module is the fix.** After installing it and rebooting, the "Shell tmp view" check in the Mount card is clean (`dedicatedMounts=0`).
 
 ## What this module does
 
